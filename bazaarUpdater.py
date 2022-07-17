@@ -30,7 +30,7 @@ def updateBazaar():
             
             cursor.executemany(insertQuery, values)
             connection.commit()
-            print(cursor.rowcount, "Record inserted successfully into bazaar table")
+            print("Records inserted/updated successfully into bazaar table")
             
     except mysql.connector.Error as e:
         print("Error while connecting to MySQL", e)
