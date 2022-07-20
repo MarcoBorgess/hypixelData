@@ -59,7 +59,7 @@ def updateBins():
             print("Records inserted/updated successfully into BINS table")
             
     except mysql.connector.Error as e:
-        print('INSERT ERROR')
+        print('INSERT ERROR IN BINS')
         print("Error while connecting to MySQL", e)
         
     finally:

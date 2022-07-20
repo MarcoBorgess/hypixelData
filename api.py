@@ -1,3 +1,5 @@
+from operator import getitem
+from urllib import response
 import requests
 import json
 import time
@@ -60,3 +62,24 @@ def getBins(ids):
         queryItems.append(queryItem)
     
     return queryItems
+
+def getItems():
+    response = requests.get('https://api.hypixel.net/resources/skyblock/items')
+    
+    if(response.status_code != requests.codes.ok):
+        print(f'Failed to request items list from hypixel')
+        return
+
+    jsonData = json.loads(response.content)
+    allItems = jsonData['items']
+    return allItems
+
+def getItemFromCofl(itemId):
+    response = requests.get(f'https://sky.coflnet.com/api/item/{itemId}/details')
+
+    if(response.status_code != requests.codes.ok):
+        print(f'Failed to request {itemId} from coflnet')
+        return
+    
+    jsonData = json.loads(response.content)
+    return jsonData
