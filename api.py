@@ -1,5 +1,6 @@
 import requests
 import json
+import time
 
 def getBazaar():
     response = requests.get('https://api.hypixel.net/skyblock/bazaar')
@@ -25,3 +26,37 @@ def getBazaar():
         items.append(item)
     
     return items
+
+def getBins(ids):
+    queryItems = [] 
+
+    for item in ids:
+        id = item[0]
+        itemId = item[1]
+        param = item[2]
+
+        response = requests.get(f'https://sky.coflnet.com/api/item/price/{itemId}/bin{param}')
+        
+        if(response.status_code != requests.codes.ok):
+            print(f'Failed to request {itemId}{param}')
+            continue
+        
+        jsonData = json.loads(response.content)
+        lowest = jsonData['lowest']
+        secondLowest = jsonData['secondLowest']
+
+        if(int(lowest) < 1):
+            response = requests.get(f'https://sky.coflnet.com/api/item/price/{itemId}{param}')
+
+            if(response.status_code != requests.codes.ok):
+                print(f'Failed to request {itemId}{param}')
+                continue
+
+            jsonData = json.loads(response.content)
+            lowest = jsonData['median']
+            secondLowest = 0
+        
+        queryItem = (id, itemId, lowest, secondLowest, f'{int(time.time())}')
+        queryItems.append(queryItem)
+    
+    return queryItems

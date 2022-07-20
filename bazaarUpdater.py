@@ -8,6 +8,7 @@ def updateBazaar():
                                             database=os.environ.get('MYSQL_DATABASE'),
                                             user=os.environ.get('MYSQL_USER'),
                                             password=os.environ.get('MYSQL_PASSWORD'))
+
         if connection.is_connected():
             cursor = connection.cursor()
             
@@ -30,7 +31,7 @@ def updateBazaar():
             
             cursor.executemany(insertQuery, values)
             connection.commit()
-            print("Records inserted/updated successfully into bazaar table")
+            print("Records inserted/updated successfully into BAZAAR table")
             
     except mysql.connector.Error as e:
         print("Error while connecting to MySQL", e)
