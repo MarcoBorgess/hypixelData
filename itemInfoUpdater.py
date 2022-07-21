@@ -1,3 +1,4 @@
+from time import sleep
 import mysql.connector
 import os
 from api import getItems, getItemFromCofl
@@ -65,8 +66,12 @@ def getItemsInfoValues():
                 itemInfo = getItemFromCofl(itemFromDB[1])
                 
                 if not itemInfo:
-                    print('ItemInfo returned nothing')
-                    continue
+                    print('ItemInfo returned nothing, trying again in 3sec...')
+                    sleep(3)
+                    itemInfo = getItemFromCofl(itemFromDB[1])
+                    if not itemInfo:
+                        print('ItemInfo returned nothing again, skipping...')
+                        continue
                 else:
                     print('Adding to list: ', itemInfo['name'])
 
