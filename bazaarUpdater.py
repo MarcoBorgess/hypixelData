@@ -4,6 +4,12 @@ from api import getBazaar
 
 def updateBazaar():
     try:
+        values = getBazaar()
+        
+        if not values:
+            print('No bazaar to update')
+            return
+        
         connection = mysql.connector.connect(host=os.environ.get('MYSQL_HOST'),
                                             database=os.environ.get('MYSQL_DATABASE'),
                                             user=os.environ.get('MYSQL_USER'),
@@ -13,10 +19,10 @@ def updateBazaar():
             cursor = connection.cursor()
             
             insertQuery = """
-                            INSERT INTO bazaar (id, sellPrice, buyPrice, sellVolume, buyVolume, sellMovingWeek, buyMovingWeek, sellOrders, buyOrders, updatedOn) 
+                            INSERT INTO bazaar (itemId, sellPrice, buyPrice, sellVolume, buyVolume, sellMovingWeek, buyMovingWeek, sellOrders, buyOrders, updatedOn) 
                             VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s) 
                             ON DUPLICATE KEY UPDATE
-                            id = VALUES(id),
+                            itemId = VALUES(itemId),
                             sellPrice = VALUES(sellPrice),
                             buyPrice = VALUES(buyPrice),
                             sellVolume = VALUES(sellVolume),
@@ -25,9 +31,13 @@ def updateBazaar():
                             buyMovingWeek = VALUES(buyMovingWeek),
                             sellOrders = VALUES(sellOrders),
                             buyOrders = VALUES(buyOrders),
-                            updatedOn = VALUES(updatedOn)
+                            updatedOn = VALUES(updatedOn);
+                            
+                            INSERT INTO itemInfo (itemId)
+                            VALUES (%s)
+                            ON DUPLICATE KEY UPDATE
+                            itemId = VALUES(itemId);
                         """
-            values = getBazaar()
             
             cursor.executemany(insertQuery, values)
             connection.commit()

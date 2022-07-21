@@ -13,7 +13,7 @@ def getBazaar():
     for key in response['products'].keys():
         qq = response['products'][key]['quick_status']
         
-        id  = response['products'][key]['product_id']
+        itemId  = response['products'][key]['product_id']
         sellPrice = qq['sellPrice']
         buyPrice = qq['buyPrice']
         sellVolume = qq['sellVolume']
@@ -24,7 +24,7 @@ def getBazaar():
         buyOrders = qq['buyOrders']
         updatedOn = response['lastUpdated']
         
-        item = (id, sellPrice, buyPrice, sellVolume, buyVolume, sellMovingWeek, buyMovingWeek, sellOrders, buyOrders, updatedOn)
+        item = (itemId, sellPrice, buyPrice, sellVolume, buyVolume, sellMovingWeek, buyMovingWeek, sellOrders, buyOrders, updatedOn, itemId)
         items.append(item)
     
     return items
@@ -58,7 +58,7 @@ def getBins(ids):
             lowest = jsonData['median']
             secondLowest = 0
         
-        queryItem = (id, itemId, lowest, secondLowest, f'{int(time.time())}')
+        queryItem = (id, itemId, lowest, secondLowest, f'{int(time.time())}', itemId)
         queryItems.append(queryItem)
     
     return queryItems

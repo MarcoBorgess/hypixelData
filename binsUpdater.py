@@ -33,6 +33,7 @@ def updateBins():
     values = getBinsSelect()
 
     if not values:
+        print('No bins to update')
         return
 
     try:        
@@ -51,9 +52,14 @@ def updateBins():
                             itemId = VALUES(itemId),
                             bin = VALUES(bin),
                             secondBin = VALUES(secondBin),
-                            updatedOn = VALUES(updatedOn)
+                            updatedOn = VALUES(updatedOn);
+                            
+                            INSERT INTO itemInfo (itemId)
+                            VALUES (%s)
+                            ON DUPLICATE KEY UPDATE
+                            itemId = VALUES(itemId);
                         """
-            
+                                   
             cursor.executemany(insertQuery, values)
             connection.commit()
             print("Records inserted/updated successfully into BINS table")
