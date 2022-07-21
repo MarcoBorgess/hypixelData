@@ -51,6 +51,16 @@ def getItemsInfoValues():
         for itemFromApi in itemsFromApi:
             if (str(itemFromDB[1]).startswith('PET_')):
                 itemInfo = getItemFromCofl(itemFromDB[1])
+                
+                if not itemInfo:
+                    print('ItemInfo returned nothing, trying again in 3sec...')
+                    sleep(3)
+                    itemInfo = getItemFromCofl(itemFromDB[1])
+                    if not itemInfo:
+                        print('ItemInfo returned nothing again, skipping...')
+                        continue
+                else:
+                    print('Adding to list: ', itemInfo['name'])
 
                 id = itemFromDB[0]
                 itemId = itemFromDB[1]
