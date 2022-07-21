@@ -49,18 +49,18 @@ def getItemsInfoValues():
 
     for itemFromDB in itemsFromDB:
         for itemFromApi in itemsFromApi:
-            # if (str(itemFromDB[1]).startswith('PET')):
-            #     itemInfo = getItemFromCofl(itemFromDB[1])
+            if (str(itemFromDB[1]).startswith('PET_')):
+                itemInfo = getItemFromCofl(itemFromDB[1])
 
-            #     id = itemFromDB[0]
-            #     itemId = itemFromDB[1]
-            #     name = itemInfo['name']
-            #     rarity = itemInfo['tier']
-            #     category = itemInfo['category']
-            #     iconUrl = itemInfo['iconUrl']
-            #     npcSellPrice = int(itemInfo['npcSellPrice'])
+                id = itemFromDB[0]
+                itemId = itemFromDB[1]
+                name = itemInfo['name']
+                rarity = itemInfo['tier']
+                category = itemInfo['category']
+                iconUrl = itemInfo['iconUrl']
+                npcSellPrice = int(itemInfo['npcSellPrice'])
 
-            #     items.append((id, itemId, npcSellPrice, name, rarity, category, iconUrl))
+                items.append((id, itemId, npcSellPrice, name, rarity, category, iconUrl))
 
             if(itemFromDB[1] == itemFromApi['id']):
                 itemInfo = getItemFromCofl(itemFromDB[1])
