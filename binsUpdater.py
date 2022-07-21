@@ -26,6 +26,7 @@ def getBinsSelect():
         if connection.is_connected():
             cursor.close()
             connection.close()
+            print("MySQL connection is closed")
 
         values = getBins(ids)
         return values

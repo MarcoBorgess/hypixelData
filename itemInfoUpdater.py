@@ -66,7 +66,7 @@ def getItemsInfoValues():
                 
                 if not itemInfo:
                     print('ItemInfo returned nothing')
-                    return
+                    continue
                 else:
                     print('Adding to list: ', itemInfo['name'])
 
