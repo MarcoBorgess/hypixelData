@@ -10,7 +10,8 @@ lastDay = 0
 while True:
     bz.updateBazaar()
     bins.updateBins()
-    if (today != lastDay):  
+    if (today != lastDay):
+        print('Updating items info, gonna take a while... ⌛')
         itemInfo.updateItemsInfo()
         lastDay = today
     print('NOW SLEEPING 💤')
