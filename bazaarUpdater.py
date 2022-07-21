@@ -31,12 +31,7 @@ def updateBazaar():
                             buyMovingWeek = VALUES(buyMovingWeek),
                             sellOrders = VALUES(sellOrders),
                             buyOrders = VALUES(buyOrders),
-                            updatedOn = VALUES(updatedOn);
-                            
-                            INSERT INTO itemInfo (itemId)
-                            VALUES (%s)
-                            ON DUPLICATE KEY UPDATE
-                            itemId = VALUES(itemId);
+                            updatedOn = VALUES(updatedOn)
                         """
             
             cursor.executemany(insertQuery, values)

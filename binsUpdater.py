@@ -52,12 +52,7 @@ def updateBins():
                             itemId = VALUES(itemId),
                             bin = VALUES(bin),
                             secondBin = VALUES(secondBin),
-                            updatedOn = VALUES(updatedOn);
-                            
-                            INSERT INTO itemInfo (itemId)
-                            VALUES (%s)
-                            ON DUPLICATE KEY UPDATE
-                            itemId = VALUES(itemId);
+                            updatedOn = VALUES(updatedOn)
                         """
                                    
             cursor.executemany(insertQuery, values)

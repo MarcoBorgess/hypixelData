@@ -12,7 +12,7 @@ def getItemsFromDB():
         if connection.is_connected():
             cursor = connection.cursor()
 
-            cursor.execute("SELECT id, itemId FROM itemsInfo")
+            cursor.execute("SELECT id, itemId FROM iteminfo")
 
             items = cursor.fetchall()
             
