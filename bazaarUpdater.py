@@ -16,6 +16,7 @@ def updateBazaar():
                                             password=os.environ.get('MYSQL_PASSWORD'))
 
         if connection.is_connected():
+            print("CONNECTED IN updateBazaar")
             cursor = connection.cursor()
             
             insertQuery = """

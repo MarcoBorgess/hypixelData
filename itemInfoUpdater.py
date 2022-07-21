@@ -10,6 +10,7 @@ def getItemsFromDB():
                                             password=os.environ.get('MYSQL_PASSWORD'))
 
         if connection.is_connected():
+            print("CONNECTED IN getItemsFromDB")
             cursor = connection.cursor()
 
             cursor.execute("SELECT id, itemId FROM iteminfo")
@@ -24,6 +25,7 @@ def getItemsFromDB():
         if connection.is_connected():
             cursor.close()
             connection.close()
+            
             return items
 
 def getItemsInfoValues():
@@ -33,30 +35,40 @@ def getItemsInfoValues():
     if not itemsFromDB:
         print('No items in DB')
         return
+    else:
+        print('Items in DB returned')
 
     if not itemsFromApi:
         print('No items in API')
         return
+    else:
+        print('Items in API returned')
 
     items = []
 
     for itemFromDB in itemsFromDB:
         for itemFromApi in itemsFromApi:
-            if (str(itemFromDB[1]).startswith('PET')):
-                itemInfo = getItemFromCofl(itemFromDB[1])
+            # if (str(itemFromDB[1]).startswith('PET')):
+            #     itemInfo = getItemFromCofl(itemFromDB[1])
 
-                id = itemFromDB[0]
-                itemId = itemFromDB[1]
-                name = itemInfo['name']
-                rarity = itemInfo['tier']
-                category = itemInfo['category']
-                iconUrl = itemInfo['iconUrl']
-                npcSellPrice = int(itemInfo['npcSellPrice'])
+            #     id = itemFromDB[0]
+            #     itemId = itemFromDB[1]
+            #     name = itemInfo['name']
+            #     rarity = itemInfo['tier']
+            #     category = itemInfo['category']
+            #     iconUrl = itemInfo['iconUrl']
+            #     npcSellPrice = int(itemInfo['npcSellPrice'])
 
-                items.append((id, itemId, npcSellPrice, name, rarity, category, iconUrl))
+            #     items.append((id, itemId, npcSellPrice, name, rarity, category, iconUrl))
 
             if(itemFromDB[1] == itemFromApi['id']):
                 itemInfo = getItemFromCofl(itemFromDB[1])
+                
+                if not itemInfo:
+                    print('ItemInfo returned nothing')
+                    return
+                else:
+                    print('Adding to list: ', itemInfo['name'])
 
                 id = itemFromDB[0]
                 itemId = itemFromDB[1]
@@ -80,6 +92,7 @@ def getItemsInfoValues():
                 
                 items.append((id, itemId, npcSellPrice, name, rarity, category, iconUrl))
     
+    print('Items list finished')
     return items
 
 def updateItemsInfo():
@@ -96,6 +109,7 @@ def updateItemsInfo():
                                             password=os.environ.get('MYSQL_PASSWORD'))
         
         if connection.is_connected():
+            print("CONNECTED IN updateItemsInfo")
             cursor = connection.cursor()
             insertQuery = """
                             INSERT INTO iteminfo (id, itemId, npcSellPrice, name, rarity, category, iconUrl) 

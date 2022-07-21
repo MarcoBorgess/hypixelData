@@ -10,6 +10,7 @@ def getBinsSelect():
                                             password=os.environ.get('MYSQL_PASSWORD'))
 
         if connection.is_connected():
+            print("CONNECTED IN getBinsSelect")
             cursor = connection.cursor()
 
             cursor.execute("SELECT id, itemId, params FROM bins")
@@ -43,6 +44,7 @@ def updateBins():
                                             password=os.environ.get('MYSQL_PASSWORD'))
         
         if connection.is_connected():
+            print("CONNECTED IN updateBins")
             cursor = connection.cursor()
             insertQuery = """
                             INSERT INTO bins (id, itemId, bin, secondBin, updatedOn) 

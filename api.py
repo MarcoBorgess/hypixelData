@@ -6,6 +6,11 @@ import time
 
 def getBazaar():
     response = requests.get('https://api.hypixel.net/skyblock/bazaar')
+    
+    if(response.status_code != requests.codes.ok):
+        print(f'Failed to request bazaar from hypixel')
+        return
+    
     response = json.loads(response.content)
 
     items = []
@@ -72,6 +77,7 @@ def getItems():
 
     jsonData = json.loads(response.content)
     allItems = jsonData['items']
+    
     return allItems
 
 def getItemFromCofl(itemId):
