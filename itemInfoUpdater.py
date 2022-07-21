@@ -46,32 +46,35 @@ def getItemsInfoValues():
         print('Items in API returned')
 
     items = []
+    
+    for itemFromDB in itemsFromDB:
+        if (str(itemFromDB[1]).startswith('PET_')):
+            itemInfo = getItemFromCofl(itemFromDB[1])
+            
+            if not itemInfo:
+                print('ItemInfo returned nothing, trying again in 3sec...')
+                sleep(3)
+                itemInfo = getItemFromCofl(itemFromDB[1])
+                if not itemInfo:
+                    print('ItemInfo returned nothing again, skipping...')
+                    continue
+            else:
+                print('Adding to list: ', itemInfo['name'])
 
+            id = itemFromDB[0]
+            itemId = itemFromDB[1]
+            name = itemInfo['name']
+            rarity = itemInfo['tier']
+            category = itemInfo['category']
+            iconUrl = itemInfo['iconUrl']
+            npcSellPrice = int(itemInfo['npcSellPrice'])
+
+            items.append((id, itemId, npcSellPrice, name, rarity, category, iconUrl))
+    
     for itemFromDB in itemsFromDB:
         for itemFromApi in itemsFromApi:
             if (str(itemFromDB[1]).startswith('PET_')):
-                itemInfo = getItemFromCofl(itemFromDB[1])
-                
-                if not itemInfo:
-                    print('ItemInfo returned nothing, trying again in 3sec...')
-                    sleep(3)
-                    itemInfo = getItemFromCofl(itemFromDB[1])
-                    if not itemInfo:
-                        print('ItemInfo returned nothing again, skipping...')
-                        continue
-                else:
-                    print('Adding to list: ', itemInfo['name'])
-
-                id = itemFromDB[0]
-                itemId = itemFromDB[1]
-                name = itemInfo['name']
-                rarity = itemInfo['tier']
-                category = itemInfo['category']
-                iconUrl = itemInfo['iconUrl']
-                npcSellPrice = int(itemInfo['npcSellPrice'])
-
-                items.append((id, itemId, npcSellPrice, name, rarity, category, iconUrl))
-
+                continue
             if(itemFromDB[1] == itemFromApi['id']):
                 itemInfo = getItemFromCofl(itemFromDB[1])
                 
