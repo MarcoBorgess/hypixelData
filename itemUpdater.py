@@ -99,7 +99,7 @@ def getItemsValues():
                 id = itemFromDB[0]
                 idHypixel = itemFromDB[1]
                 if (str(idDB).startswith('ENCHANTED_BOOK')):
-                    name = itemId.split('=')[1].capitalize() + ' Book'
+                    name = idHypixel.split('=')[1].capitalize() + ' Book'
                 else:
                     name = itemInfo['name']
                 iconURL = itemInfo['iconUrl']
