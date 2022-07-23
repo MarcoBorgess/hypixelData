@@ -77,14 +77,12 @@ def getItemsValues():
             
             idDB = itemFromDB[1]
             itemId = idDB
-            param = '?'
 
             if (str(idDB).startswith('PET_')):
                 continue
             
-            if param in idDB:
-                itemId = idDB.split(param)[0]
-                param = idDB.split(param)[1]
+            if '?' in idDB:
+                itemId = idDB.split('?')[0]
             
             if(itemId == itemFromApi['id']):
                 itemInfo = getItemFromCofl(idDB)
@@ -100,8 +98,8 @@ def getItemsValues():
 
                 id = itemFromDB[0]
                 idHypixel = itemFromDB[1]
-                if (param != '?' and str(idDB).startswith('ENCHANTED_BOOK')):
-                    name = param.capitalize() + ' Book'
+                if (str(idDB).startswith('ENCHANTED_BOOK')):
+                    name = itemId.split('=')[1].capitalize() + ' Book'
                 else:
                     name = itemInfo['name']
                 iconURL = itemInfo['iconUrl']
