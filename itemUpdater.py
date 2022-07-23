@@ -100,7 +100,7 @@ def getItemsValues():
 
                 id = itemFromDB[0]
                 idHypixel = itemFromDB[1]
-                if (param != '?' & str(idDB).startswith('ENCHANTED_BOOK')):
+                if (param != '?' and str(idDB).startswith('ENCHANTED_BOOK')):
                     name = param.capitalize() + ' Book'
                 else:
                     name = itemInfo['name']
