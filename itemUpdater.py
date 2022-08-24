@@ -156,5 +156,3 @@ def updateItemTable():
                     """       
     print('✅ Inserting/updating table item...')
     insertMany(insertQuery, values)
-    
-updateItemTable()
