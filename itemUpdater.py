@@ -33,9 +33,7 @@ def subtractRarity(rarity):
 
 def get_as_base64(url):
     request = requests.get(url)
-    if request.status_code == requests.codes.ok:
-        print(f'✅ Request ok {request.content}')
-        print(f'✅ Image downloaded ({url})')
+    if request.status_code == 200:
         return base64.b64encode(request.content)
         
     print (f'⚠️ Image failed to download ({url})')
