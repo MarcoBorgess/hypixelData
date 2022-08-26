@@ -8,8 +8,8 @@ today = date.today().strftime('%d')
 lastDay = 0
 
 while True:
-    # bz.updateBz()
-    # ah.updateAh()
+    bz.updateBz()
+    ah.updateAh()
     
     if (today != lastDay):
         print('⌛ Updating items table, gonna take a while...')
