@@ -1,4 +1,3 @@
-import re
 import time
 import base64
 import requests
@@ -34,10 +33,11 @@ def subtractRarity(rarity):
 
 def get_as_base64(url):
     request = requests.get(url)
-    if request.status_code == 200:
+    if request.status_code == requests.codes.ok:
         print(f'✅ Image downloaded ({url})')
         return base64.b64encode(request.content)
         
+    print (f'⚠️ Image failed to download ({url})')
     return 'None'
 
 def getItemsValues():
