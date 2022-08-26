@@ -12,9 +12,9 @@ while True:
     ah.updateAh()
     
     if (today != lastDay):
-        print('❕❗ Updating items table, gonna take a while... ⌛')
+        print('⌛ Updating items table, gonna take a while...')
         item.updateItemTable()
         lastDay = today
         
     print('💤 NOW SLEEPING 💤')
-    sleep(900)
+    sleep(300)
