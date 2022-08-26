@@ -61,14 +61,13 @@ def getItemsValues():
                     print('⚠️ getItemFromCofl returned nothing again, skipping...')
                     continue
                 
-
             id = itemFromDB[0]
             idHypixel = itemFromDB[1]
             name = itemInfo['name']
             rarity = itemInfo['tier']
             category = itemInfo['category']
             iconURL = itemInfo['iconUrl']
-            iconBase64 = itemFromDB[2] if itemFromDB[2] is not None else get_as_base64(iconURL)
+            iconBase64 = itemFromDB[2] if len(str(itemFromDB[2])) > 10 else get_as_base64(iconURL)
             npcSellPrice = int(itemInfo['npcSellPrice'])
             updatedOn = str(int(time.time()))
 
@@ -107,7 +106,7 @@ def getItemsValues():
                 else:
                     name = itemInfo['name']
                 iconURL = itemInfo['iconUrl']
-                iconBase64 = itemFromDB[2] if itemFromDB[2] is not None else get_as_base64(iconURL)
+                iconBase64 = itemFromDB[2] if len(str(itemFromDB[2])) > 10 else get_as_base64(iconURL)
 
                 if ('tier' in itemFromApi):
                     rarity = itemFromApi['tier']
