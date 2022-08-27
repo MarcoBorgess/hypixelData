@@ -35,7 +35,7 @@ def getBazaar():
     return items
 
 def getBins(ids):
-    
+    print('✅ Getting bins...')
     queryItems = []
     
     for id in ids:

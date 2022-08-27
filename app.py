@@ -23,10 +23,10 @@ while True:
         img.update_icon64_column()
         last_hour = hour
     
-    if (day != lastDay):
+    if (day != last_day):
         print('⌛ Updating items...')
         item.updateItemTable()
-        lastDay = day
+        last_day = day
     
     print(f'💤 NOW SLEEPING ({COOLDOWN}s) 💤')
     sleep(COOLDOWN)
