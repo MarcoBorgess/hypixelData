@@ -11,7 +11,7 @@ lastDay = 0
 while True:
     bz.updateBz()
     ah.updateAh()
-    # img.update_icon64_column()
+    img.update_icon64_column()
     
     if (today != lastDay):
         print('⌛ Updating items table, gonna take a while...')
@@ -19,4 +19,4 @@ while True:
         lastDay = today
         
     print('💤 NOW SLEEPING 💤')
-    sleep(900)
+    sleep(300) # Sleep for 5 minutes
