@@ -1,6 +1,4 @@
 import time
-import base64
-import requests
 from db import insertMany, select
 from api import getItems, getItemFromCofl
         
@@ -31,17 +29,9 @@ def subtractRarity(rarity):
     
     return subtractedRarity
 
-def get_as_base64(url):
-    request = requests.get(url)
-    if request.status_code == 200:
-        return base64.b64encode(request.content)
-        
-    print (f'⚠️ Image failed to download ({url})')
-    return 'None'
-
 def getItemsValues():
     itemsFromApi = getItems()
-    itemsFromDB = select('SELECT id, idHypixel, iconBase64 FROM item')
+    itemsFromDB = select('SELECT id, idHypixel FROM item')
 
     if not itemsFromDB:
         print('⚠️ SELECT from item returned nothing')
@@ -72,11 +62,10 @@ def getItemsValues():
             rarity = itemInfo['tier']
             category = itemInfo['category']
             iconURL = itemInfo['iconUrl']
-            iconBase64 = itemFromDB[2] if len(str(itemFromDB[2])) > 10 else get_as_base64(iconURL)
             npcSellPrice = int(itemInfo['npcSellPrice'])
             updatedOn = str(int(time.time()))
 
-            item = (id, idHypixel, name, rarity, category, iconURL, iconBase64, npcSellPrice, updatedOn)
+            item = (id, idHypixel, name, rarity, category, iconURL, npcSellPrice, updatedOn)
             print('✅ Adding item to list: ' + item[2])
             items.append(item)
     
@@ -111,7 +100,6 @@ def getItemsValues():
                 else:
                     name = itemInfo['name']
                 iconURL = itemInfo['iconUrl']
-                iconBase64 = itemFromDB[2] if len(str(itemFromDB[2])) > 10 else get_as_base64(iconURL)
 
                 if ('tier' in itemFromApi):
                     rarity = itemFromApi['tier']
@@ -130,7 +118,7 @@ def getItemsValues():
                 
                 updatedOn = str(int(time.time()))
                 
-                item = (id, idHypixel, name, rarity, category, iconURL, iconBase64, npcSellPrice, updatedOn)
+                item = (id, idHypixel, name, rarity, category, iconURL, npcSellPrice, updatedOn)
                 print('✅ Adding item to list: ' + item[2])
                 items.append(item)
     
@@ -145,8 +133,8 @@ def updateItemTable():
         return
     
     insertQuery = """
-                        INSERT INTO item (id, idHypixel, name, rarity, category, iconURL, iconBase64, npcSellPrice, updatedOn) 
-                        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s) 
+                        INSERT INTO item (id, idHypixel, name, rarity, category, iconURL, npcSellPrice, updatedOn) 
+                        VALUES (%s, %s, %s, %s, %s, %s, %s, %s) 
                         ON DUPLICATE KEY UPDATE
                         id = VALUES(id),
                         idHypixel = VALUES(idHypixel),
@@ -154,7 +142,6 @@ def updateItemTable():
                         rarity = VALUES(rarity),
                         category = VALUES(category),
                         iconURL = VALUES(iconURL),
-                        iconBase64 = VALUES(iconBase64),
                         npcSellPrice = VALUES(npcSellPrice),
                         updatedOn = VALUES(updatedOn)
                     """       
