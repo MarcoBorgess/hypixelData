@@ -2,21 +2,31 @@ import itemUpdater as item
 import bzUpdater as bz
 import ahUpdater as ah
 import imgUpdater as img
+import datetime
 from time import sleep
-from datetime import date
 
-today = date.today().strftime('%d')
-lastDay = 0
+COOLDOWN = 300 # in seconds
+
+now = datetime.datetime.now()
+day = now.day
+hour = now.strftime('%H')
+
+last_day = 0
+last_hour = 0
 
 while True:
     bz.updateBz()
     ah.updateAh()
-    img.update_icon64_column()
     
-    if (today != lastDay):
-        print('⌛ Updating items table, gonna take a while...')
+    if (hour != last_hour):
+        print('⌛ Updating images...')
+        img.update_icon64_column()
+        last_hour = hour
+    
+    if (day != lastDay):
+        print('⌛ Updating items...')
         item.updateItemTable()
-        lastDay = today
-        
-    print('💤 NOW SLEEPING 💤')
-    sleep(300) # Sleep for 5 minutes
+        lastDay = day
+    
+    print(f'💤 NOW SLEEPING ({COOLDOWN}s) 💤')
+    sleep(COOLDOWN)

@@ -49,11 +49,11 @@ def getItemsValues():
             itemInfo = getItemFromCofl(itemFromDB[1])
             
             if not itemInfo:
-                print('⚠️ getItemFromCofl returned nothing, trying again in 3sec...')
+                # print('⚠️ getItemFromCofl returned nothing, trying again in 3sec...')
                 time.sleep(3)
                 itemInfo = getItemFromCofl(itemFromDB[1])
                 if not itemInfo:
-                    print('⚠️ getItemFromCofl returned nothing again, skipping...')
+                    # print('⚠️ getItemFromCofl returned nothing again, skipping...')
                     continue
                 
             id = itemFromDB[0]
@@ -66,7 +66,7 @@ def getItemsValues():
             updatedOn = str(int(time.time()))
 
             item = (id, idHypixel, name, rarity, category, iconURL, npcSellPrice, updatedOn)
-            print('✅ Adding item to list: ' + item[2])
+            # print('✅ Adding item to list: ' + item[2])
             items.append(item)
     
     for itemFromDB in itemsFromDB:
@@ -85,11 +85,11 @@ def getItemsValues():
                 itemInfo = getItemFromCofl(idDB)
                 
                 if not itemInfo:
-                    print('⚠️ getItemFromCofl returned nothing, trying again in 3sec...')
+                    # print('⚠️ getItemFromCofl returned nothing, trying again in 3sec...')
                     time.sleep(3)
                     itemInfo = getItemFromCofl(idDB)
                     if not itemInfo:
-                        print('⚠️ getItemFromCofl returned nothing again, skipping...')
+                        # print('⚠️ getItemFromCofl returned nothing again, skipping...')
                         continue
                     
 
@@ -119,7 +119,7 @@ def getItemsValues():
                 updatedOn = str(int(time.time()))
                 
                 item = (id, idHypixel, name, rarity, category, iconURL, npcSellPrice, updatedOn)
-                print('✅ Adding item to list: ' + item[2])
+                # print('✅ Adding item to list: ' + item[2])
                 items.append(item)
     
     print(f'✅ Items list finished ({str(len(items))} items)')
