@@ -7,14 +7,14 @@ from time import sleep
 
 COOLDOWN = 300 # in seconds
 
-now = datetime.datetime.now()
-day = now.day
-hour = now.strftime('%H')
-
 last_day = 0
 last_hour = 0
 
 while True:
+    now = datetime.datetime.now()
+    day = now.day
+    hour = now.strftime('%H')
+    
     bz.updateBz()
     ah.updateAh()
     
