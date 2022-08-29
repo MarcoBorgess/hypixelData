@@ -5,7 +5,7 @@ import imgUpdater as img
 import datetime
 from time import sleep
 
-COOLDOWN = 300 # in seconds
+COOLDOWN = 900 # in seconds
 
 last_day = 0
 last_hour = 0
