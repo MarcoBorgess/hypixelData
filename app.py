@@ -18,10 +18,10 @@ while True:
     bz.updateBz()
     ah.updateAh()
     
-    if (hour != last_hour):
-        print('⌛ Updating images...')
-        img.update_icon64_column()
-        last_hour = hour
+    # if (hour != last_hour):
+    #     print('⌛ Updating images...')
+    #     img.update_icon64_column()
+    #     last_hour = hour
     
     if (day != last_day):
         print('⌛ Updating items...')
