@@ -31,7 +31,7 @@ def subtractRarity(rarity):
 
 def getItemsValues():
     itemsFromApi = getItems()
-    itemsFromDB = select('SELECT id, idHypixel FROM item')
+    itemsFromDB = select('SELECT id, idHypixel, iconURL FROM item')
 
     if not itemsFromDB:
         print('⚠️ SELECT from item returned nothing')
@@ -61,7 +61,7 @@ def getItemsValues():
             name = itemInfo['name']
             rarity = itemInfo['tier']
             category = itemInfo['category']
-            iconURL = itemInfo['iconUrl']
+            iconURL = itemFromDB[2] if itemFromDB[2] is not None and len(itemFromDB) > 0 else itemInfo['iconUrl'] 
             npcSellPrice = int(itemInfo['npcSellPrice'])
             updatedOn = str(int(time.time()))
 
@@ -95,11 +95,8 @@ def getItemsValues():
 
                 id = itemFromDB[0]
                 idHypixel = itemFromDB[1]
-                if (str(idDB).startswith('ENCHANTED_BOOK')):
-                    name = idHypixel.split('=')[1].capitalize() + ' Book'
-                else:
-                    name = itemInfo['name']
-                iconURL = itemInfo['iconUrl']
+                name = itemInfo['name']
+                iconURL = itemFromDB[2] if itemFromDB[2] is not None and len(itemFromDB) > 0 else itemInfo['iconUrl'] 
 
                 if ('tier' in itemFromApi):
                     rarity = itemFromApi['tier']

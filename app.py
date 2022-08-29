@@ -6,20 +6,20 @@ from time import sleep
 
 COOLDOWN = 900 # in seconds
 
-last_day = 0
+last_week = 0
 
 while True:
     now = datetime.datetime.now()
-    day = now.day
+    week = now.strftime('%U')
     hour = now.strftime('%H')
     
     bz.updateBz()
     ah.updateAh()
     
-    if (day != last_day):
+    if (week > last_week):
         print('⌛ Updating items...')
         item.updateItemTable()
-        last_day = day
+        last_week = week
     
     print(f'💤 NOW SLEEPING ({COOLDOWN}s) 💤')
     sleep(COOLDOWN)
