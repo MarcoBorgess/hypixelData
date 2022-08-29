@@ -3,14 +3,14 @@ import requests
 import base64
 
 def get_as_base64(url):
-    response  = requests.get(url)
+    response = requests.get(url)
     headers = response.headers
     if headers['Content-Type'] == 'image/png':
         b64_encoded = base64.b64encode(response.content)
-        # print(f'✅ Icon found {url}')
+        print(f'✅ Icon found {url}')
         return b64_encoded
         
-    # print(f'⚠️ Icon not found {url}')
+    print(f'⚠️ Icon not found {url}')
     return None
 
 def get_icon64_values():
