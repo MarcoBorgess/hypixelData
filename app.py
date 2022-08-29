@@ -1,14 +1,12 @@
 import itemUpdater as item
 import bzUpdater as bz
 import ahUpdater as ah
-import imgUpdater as img
 import datetime
 from time import sleep
 
 COOLDOWN = 900 # in seconds
 
 last_day = 0
-last_hour = 0
 
 while True:
     now = datetime.datetime.now()
@@ -17,11 +15,6 @@ while True:
     
     bz.updateBz()
     ah.updateAh()
-    
-    if (hour != last_hour):
-        print('⌛ Updating images...')
-        img.update_icon64_column()
-        last_hour = hour
     
     if (day != last_day):
         print('⌛ Updating items...')
