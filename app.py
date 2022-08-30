@@ -10,8 +10,7 @@ last_week = 0
 
 while True:
     now = datetime.datetime.now()
-    week = now.strftime('%U')
-    hour = now.strftime('%H')
+    week = int(now.strftime('%U'))
     
     bz.updateBz()
     ah.updateAh()
